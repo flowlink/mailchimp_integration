@@ -3,10 +3,6 @@ Dir['./lib/**/*.rb'].each(&method(:require))
 class MailChimpEndpoint < EndpointBase::Sinatra::Base
   set :logging, true
 
-  configure :development do
-    enable :logging, :dump_errors, :raise_errors
-  end
-
   Honeybadger.configure do |config|
     config.api_key = ENV['HONEYBADGER_KEY']
     config.environment_name = ENV['RACK_ENV']
