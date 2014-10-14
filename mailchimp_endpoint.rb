@@ -13,21 +13,55 @@ class MailChimpEndpoint < EndpointBase::Sinatra::Base
   end
 
   post '/add_to_list' do
-    begin
-      mailchimp = Mailchimp::API.new(api_key)
+    mailchimp = Mailchimp::API.new(api_key)
 
-      list_ids.each {|list_id| subscribe(mailchimp, list_id)}
-    rescue => ex
-      result 500, ex.message and return
-    end
+    list_ids.each {|list_id| subscribe(mailchimp, list_id)}
 
     result 200, "Successfully subscribed #{email} to the MailChimp list(s)"
   end
 
+  post '/add_order' do
+    mailchimp = Mailchimp::API.new(api_key)
+
+    mailchimp.ecomm.order_add({
+      id: order[:id],
+      campaign_id: order[:campaign_id],
+      email_id: order[:email_id],
+      email: order[:email],
+      total: order[:totals][:order],
+      order_date: order[:placed_on],
+      shipping: order[:totals][:shipping],
+      tax: order[:totals][:tax],
+      store_id: order[:store_id] || "Wombat",
+      store_name: order[:store_name] || "Wombat",
+      items: order[:line_items].map do |item|
+        {
+          product_id: sku_to_id(item[:product_id]),
+          sku: item[:product_id],
+          product_name: item[:name],
+          category_id: item[:category_id] || 0,
+          category_name: item[:category_name] || "Wombat",
+          qty: item[:quantity],
+          cost: item[:price]
+          }
+      end
+   })
+
+   result 200, "Order #{order[:id]} has been sent to MailChimp"
+  end
+
   private
+
+  def sku_to_id(sku)
+    sku.each_codepoint.inject(0) {|acc, cur| acc + cur }
+  end
 
   def email
     @payload['member']['email']
+  end
+
+  def order
+    @payload[:order]
   end
 
   def list_ids

@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'bundler'
+require 'hub/samples'
 require 'spree/testing_support/controllers'
 
 Bundler.require(:default, :test)

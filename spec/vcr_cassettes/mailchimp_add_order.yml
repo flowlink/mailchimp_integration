@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://us8.api.mailchimp.com/2.0/ecomm/order-add.json
+    body:
+      encoding: UTF-8
+      string: '{"order":{"id":"123","campaign_id":null,"email_id":null,"email":"bruno@spreecommerce.com","total":210.0,"order_date":"2014-02-03T17:29:15.219Z","shipping":0.0,"tax":10.0,"store_id":"Wombat","store_name":"Wombat","items":[{"product_id":951,"sku":"SPREE-T-SHIRT","product_name":"Spree
+        T-Shirt","category_id":0,"category_name":"Wombat","qty":2,"cost":100.0}]},"apikey":"apikey-us8"}'
+    headers:
+      User-Agent:
+      - excon/0.37.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      Server:
+      - nginx
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '17'
+      Date:
+      - Tue, 14 Oct 2014 13:56:18 GMT
+      Connection:
+      - close
+      Set-Cookie:
+      - _AVESTA_ENVIRONMENT=prod; path=/
+    body:
+      encoding: UTF-8
+      string: '{"complete":true}'
+    http_version:
+  recorded_at: Tue, 14 Oct 2014 13:56:18 GMT
+recorded_with: VCR 2.4.0

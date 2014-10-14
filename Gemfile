@@ -14,6 +14,7 @@ gem 'endpoint_base', github: 'spree/endpoint_base'
 group :development do
   gem 'pry'
   gem 'awesome_print'
+  gem 'shotgun'
 end
 
 group :test do
@@ -24,6 +25,7 @@ group :test do
   gem 'terminal-notifier-guard'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'rack-test'
+  gem 'hub_samples', github: 'spree/hub_samples'
 end
 
 group :production do
