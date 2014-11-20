@@ -9,10 +9,7 @@ class MailChimpEndpoint < EndpointBase::Sinatra::Base
   end
 
   post '/add_to_list' do
-    MailChimp::API.host = 'https://api-mailchimp-com-plxacwrjlhgi.runscope.net'
-
     mailchimp = Mailchimp::API.new(api_key)
-    mailchimp.host = 'https://api-mailchimp-com-plxacwrjlhgi.runscope.net'
 
     list_ids.each {|list_id| subscribe(mailchimp, list_id)}
 
@@ -21,7 +18,6 @@ class MailChimpEndpoint < EndpointBase::Sinatra::Base
 
   post '/add_order' do
     mailchimp = Mailchimp::API.new(api_key)
-    mailchimp.host = 'https://api-mailchimp-com-plxacwrjlhgi.runscope.net'
 
     mailchimp.ecomm.order_add({
       id: order[:id],
