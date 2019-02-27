@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    container_name: mailchimp-integration
+    network_mode: bridge
+    environment:
+      - VIRTUAL_HOST=mailchimp_integration.flowlink.io
+    build: .
+    volumes:
+      - .:/app
+    restart: always
+    logging:
+      driver: gcplogs
